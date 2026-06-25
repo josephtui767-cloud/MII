@@ -140,18 +140,43 @@ MII will discover which GitLab projects have OIDC trust to your AWS roles.
 
 ### OpenAI Setup (Optional)
 
-For AI-powered risk explanations and remediation plans:
+For AI-powered risk explanations and remediation plans. MII uses the **OpenAI-compatible API standard** — so it works with any provider that speaks this protocol.
 
-1. Go to https://platform.openai.com/api-keys
-2. Create a new API key
-3. Add $5 credit (each MII call costs ~$0.001)
-4. Add to `.env`:
+#### Option A: OpenAI (default)
 ```bash
 OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 OPENAI_MODEL=gpt-4o-mini
+OPENAI_BASE_URL=https://api.openai.com/v1
+```
+1. Go to https://platform.openai.com/api-keys
+2. Create a new API key
+3. Add $5 credit (each MII call costs ~$0.001)
+
+#### Option B: Azure OpenAI
+```bash
+OPENAI_API_KEY=your-azure-key
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_BASE_URL=https://YOUR-RESOURCE.openai.azure.com/openai/deployments/YOUR-DEPLOYMENT/
 ```
 
-The platform works fully without OpenAI — AI features just won't appear on identity detail pages.
+#### Option C: Ollama (free, local, no API key needed)
+```bash
+OPENAI_API_KEY=not-needed
+OPENAI_MODEL=llama3.1
+OPENAI_BASE_URL=http://localhost:11434/v1
+```
+Run `ollama pull llama3.1` first.
+
+#### Option D: Any OpenAI-compatible proxy (LiteLLM, vLLM, etc.)
+```bash
+OPENAI_API_KEY=your-key
+OPENAI_MODEL=your-model-name
+OPENAI_BASE_URL=http://your-proxy:4000/v1
+```
+
+Works with: LiteLLM, vLLM, Anyscale, Together AI, Groq, Fireworks, or any service exposing an `/v1/chat/completions` endpoint.
+
+The platform works fully without AI — AI features just won't appear on identity detail pages.
 
 ---
 
