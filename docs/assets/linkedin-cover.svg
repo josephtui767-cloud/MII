@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="40%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="redGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EF4444;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="120" x2="1920" y2="120" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="240" x2="1920" y2="240" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="360" x2="1920" y2="360" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="480" x2="1920" y2="480" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="600" x2="1920" y2="600" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="720" x2="1920" y2="720" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="840" x2="1920" y2="840" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="960" x2="1920" y2="960" stroke="white" stroke-width="0.5"/>
+    <line x1="240" y1="0" x2="240" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="480" y1="0" x2="480" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="720" y1="0" x2="720" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="960" y1="0" x2="960" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="1200" y1="0" x2="1200" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080" stroke="white" stroke-width="0.5"/>
+    <line x1="1680" y1="0" x2="1680" y2="1080" stroke="white" stroke-width="0.5"/>
+  </g>
+
+  <!-- Trust Graph Network (background decoration - left side) -->
+  <g opacity="0.15" filter="url(#softGlow)">
+    <!-- Cluster 1 - top left -->
+    <circle cx="150" cy="200" r="8" fill="#3B82F6"/>
+    <circle cx="250" cy="150" r="6" fill="#8B5CF6"/>
+    <circle cx="300" cy="250" r="10" fill="#3B82F6"/>
+    <circle cx="200" cy="320" r="7" fill="#8B5CF6"/>
+    <circle cx="350" cy="180" r="5" fill="#3B82F6"/>
+    <line x1="150" y1="200" x2="250" y2="150" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="250" y1="150" x2="300" y2="250" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="150" y1="200" x2="200" y2="320" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="300" y1="250" x2="200" y2="320" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="250" y1="150" x2="350" y2="180" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="300" y1="250" x2="350" y2="180" stroke="#8B5CF6" stroke-width="0.8"/>
+
+    <!-- Cluster 2 - bottom left -->
+    <circle cx="100" cy="700" r="9" fill="#8B5CF6"/>
+    <circle cx="200" cy="650" r="6" fill="#3B82F6"/>
+    <circle cx="180" cy="780" r="7" fill="#8B5CF6"/>
+    <circle cx="300" cy="720" r="8" fill="#3B82F6"/>
+    <circle cx="250" cy="820" r="5" fill="#8B5CF6"/>
+    <line x1="100" y1="700" x2="200" y2="650" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="100" y1="700" x2="180" y2="780" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="200" y1="650" x2="300" y2="720" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="180" y1="780" x2="300" y2="720" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="180" y1="780" x2="250" y2="820" stroke="#8B5CF6" stroke-width="0.8"/>
+  </g>
+
+  <!-- Trust Graph Network (right side) -->
+  <g opacity="0.15" filter="url(#softGlow)">
+    <!-- Cluster 3 - top right -->
+    <circle cx="1600" cy="180" r="7" fill="#3B82F6"/>
+    <circle cx="1700" cy="220" r="9" fill="#8B5CF6"/>
+    <circle cx="1650" cy="300" r="6" fill="#3B82F6"/>
+    <circle cx="1750" cy="150" r="5" fill="#8B5CF6"/>
+    <circle cx="1800" cy="280" r="8" fill="#3B82F6"/>
+    <line x1="1600" y1="180" x2="1700" y2="220" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="1700" y1="220" x2="1650" y2="300" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="1700" y1="220" x2="1750" y2="150" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="1700" y1="220" x2="1800" y2="280" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="1650" y1="300" x2="1800" y2="280" stroke="#3B82F6" stroke-width="0.8"/>
+
+    <!-- Cluster 4 - bottom right (with red "danger" node) -->
+    <circle cx="1550" cy="750" r="6" fill="#8B5CF6"/>
+    <circle cx="1650" cy="700" r="8" fill="#3B82F6"/>
+    <circle cx="1700" cy="800" r="12" fill="#EF4444" opacity="0.8"/>
+    <circle cx="1780" cy="720" r="7" fill="#8B5CF6"/>
+    <circle cx="1820" cy="830" r="5" fill="#3B82F6"/>
+    <line x1="1550" y1="750" x2="1650" y2="700" stroke="#8B5CF6" stroke-width="1"/>
+    <line x1="1650" y1="700" x2="1700" y2="800" stroke="#EF4444" stroke-width="1.5"/>
+    <line x1="1650" y1="700" x2="1780" y2="720" stroke="#3B82F6" stroke-width="1"/>
+    <line x1="1700" y1="800" x2="1780" y2="720" stroke="#EF4444" stroke-width="1"/>
+    <line x1="1700" y1="800" x2="1820" y2="830" stroke="#EF4444" stroke-width="1"/>
+  </g>
+
+  <!-- Red danger glow around the critical node -->
+  <circle cx="1700" cy="800" r="30" fill="url(#redGlow)" opacity="0.4"/>
+
+  <!-- Accent line top -->
+  <rect x="0" y="0" width="1920" height="4" fill="url(#accent)"/>
+
+  <!-- Central content area -->
+  <!-- Shield icon -->
+  <g transform="translate(830, 280)" filter="url(#glow)">
+    <path d="M40 8 L8 20 L8 40 C8 62 24 80 40 88 C56 80 72 62 72 40 L72 20 Z" 
+          fill="none" stroke="url(#accent)" stroke-width="4" opacity="0.9"/>
+    <path d="M28 44 L36 52 L54 32" 
+          fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Main Title -->
+  <text x="960" y="430" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="88" font-weight="700" fill="white" text-anchor="middle" letter-spacing="-2">
+    Machine Identity Intelligence
+  </text>
+
+  <!-- Subtitle -->
+  <text x="960" y="510" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="36" fill="#94A3B8" text-anchor="middle">
+    The Invisible Attack Surface
+  </text>
+
+  <!-- Stat highlight -->
+  <g transform="translate(660, 570)">
+    <rect x="0" y="0" width="600" height="80" rx="12" fill="none" stroke="url(#accent)" stroke-width="1.5" opacity="0.6"/>
+    <text x="300" y="35" font-family="system-ui, sans-serif" font-size="20" fill="#CBD5E1" text-anchor="middle">Machine identities outnumber humans</text>
+    <text x="300" y="65" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#3B82F6" text-anchor="middle">82 : 1</text>
+  </g>
+
+  <!-- Bottom tagline -->
+  <text x="960" y="750" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#64748B" text-anchor="middle">
+    Discover · Map · Score · Remediate
+  </text>
+
+  <!-- Tech badges at bottom -->
+  <text x="960" y="820" font-family="system-ui, sans-serif" font-size="16" fill="#475569" text-anchor="middle">
+    Open Source · AWS · CI/CD · Trust Graph · AI-Powered Remediation
+  </text>
+
+  <!-- GitHub URL -->
+  <text x="960" y="920" font-family="system-ui, sans-serif" font-size="18" fill="#64748B" text-anchor="middle">
+    github.com/josephtui767-cloud/MII
+  </text>
+
+  <!-- Accent line bottom -->
+  <rect x="0" y="1076" width="1920" height="4" fill="url(#accent)"/>
+</svg>
