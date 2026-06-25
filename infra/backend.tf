@@ -162,8 +162,6 @@ services:
       AWS_ACCOUNT_IDS: "${var.aws_account_ids}"
       GITLAB_URL: "https://gitlab.com"
       GITLAB_TOKEN: "${var.gitlab_token}"
-      GITHUB_TOKEN: "${var.github_token}"
-      GITHUB_ORG: "${var.github_org}"
       OPENAI_API_KEY: "${var.openai_api_key}"
       OPENAI_MODEL: gpt-4o-mini
     depends_on:

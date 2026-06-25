@@ -50,15 +50,8 @@ variable "gitlab_token" {
   sensitive   = true
 }
 
-variable "github_token" {
-  description = "GitHub token (optional — for GitHub Actions identity discovery)"
-  type        = string
-  default     = ""
-  sensitive   = true
-}
-
 variable "github_org" {
-  description = "GitHub organization name (optional — for GitHub Actions identity discovery)"
+  description = "GitHub organization name (used in OIDC demo trust policies)"
   type        = string
   default     = ""
 }

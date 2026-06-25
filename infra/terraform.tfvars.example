@@ -1,15 +1,23 @@
-# Required
+# Required — Container registry
 container_image              = "ghcr.io/YOUR_ORG/mii-backend:latest"
 container_registry_username  = "YOUR_GITHUB_USERNAME"
 container_registry_password  = "ghp_YOUR_GITHUB_PAT"
 
-# AWS
+# Required — AWS
 aws_region      = "eu-central-1"
 aws_account_ids = "123456789012"
 
-# Optional
+# Required — Database
+db_password = "your-secure-random-password"
+
+# Optional — GitHub org (for OIDC demo trust policies)
+github_org = "your-github-org"
+
+# Optional — GitLab (for identity discovery)
+gitlab_token = ""
+
+# Optional — AI features
 openai_api_key = ""
-gitlab_token   = ""
-github_token   = ""
-db_password    = "your-secure-password"
-key_name       = ""
+
+# Optional — SSH key for EC2 access
+key_name = ""

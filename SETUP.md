@@ -15,6 +15,88 @@ This guide walks you through setting up the Machine Identity Intelligence platfo
 
 ---
 
+## Connecting Your Accounts
+
+MII discovers machine identities from your AWS account and (optionally) GitLab CI/CD. Here's how to configure each.
+
+### AWS Setup (Required)
+
+MII needs **read-only** IAM access to discover identities. It uses the [boto3 credential chain](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html) — pick one method:
+
+#### Method A: Environment Variables (local dev)
+
+Add to your `.env` file:
+```bash
+AWS_REGION=eu-central-1
+AWS_ACCOUNT_IDS=123456789012           # Your AWS account ID
+AWS_ACCESS_KEY_ID=AKIA...              # IAM user access key
+AWS_SECRET_ACCESS_KEY=wJalrX...        # IAM user secret key
+```
+
+**Create an IAM user with read-only access:**
+1. Go to AWS Console → IAM → Users → Create User
+2. Name: `mii-reader`
+3. Attach policy: `IAMReadOnlyAccess`
+4. Create access key → Copy the key ID and secret into `.env`
+
+#### Method B: EC2 Instance Role (production)
+
+When running on EC2, the Terraform config automatically creates an instance profile with `IAMReadOnlyAccess`. No env vars needed — boto3 picks up the role automatically.
+
+#### Method C: AWS CLI Profile (local dev alternative)
+
+If you have `~/.aws/credentials` configured:
+```bash
+AWS_REGION=eu-central-1
+AWS_ACCOUNT_IDS=123456789012
+# No AWS_ACCESS_KEY_ID/SECRET needed — boto3 reads ~/.aws/credentials
+```
+
+#### Cross-Account Discovery (optional)
+
+To scan multiple AWS accounts, set a role ARN that MII can assume:
+```bash
+AWS_ACCOUNT_IDS=111111111111,222222222222
+AWS_ASSUME_ROLE_ARN=arn:aws:iam::222222222222:role/MIIReadOnlyRole
+```
+
+The target account needs an IAM role trusting your source account with `IAMReadOnlyAccess`.
+
+---
+
+### GitLab Setup (Optional)
+
+To discover GitLab CI/CD identities (OIDC federations, pipeline tokens):
+
+1. Go to GitLab → Settings → Access Tokens
+2. Create a token with `read_api` scope
+3. Add to `.env`:
+```bash
+GITLAB_URL=https://gitlab.com
+GITLAB_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
+```
+
+MII will discover which GitLab projects have OIDC trust to your AWS roles.
+
+---
+
+### OpenAI Setup (Optional)
+
+For AI-powered risk explanations and remediation plans:
+
+1. Go to https://platform.openai.com/api-keys
+2. Create a new API key
+3. Add $5 credit (each MII call costs ~$0.001)
+4. Add to `.env`:
+```bash
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
+OPENAI_MODEL=gpt-4o-mini
+```
+
+The platform works fully without OpenAI — AI features just won't appear on identity detail pages.
+
+---
+
 ## Option 1: Local Development (Docker Compose)
 
 The fastest way to get MII running locally.
@@ -27,9 +109,10 @@ cd mii
 cp .env.example .env
 ```
 
-Edit `.env` with your values:
+Edit `.env` with your values (see [Connecting Your Accounts](#connecting-your-accounts) above):
 - `AWS_REGION` — your AWS region
 - `AWS_ACCOUNT_IDS` — comma-separated AWS account IDs to scan
+- `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` — IAM user with `IAMReadOnlyAccess`
 - `OPENAI_API_KEY` — (optional) for AI features
 
 ### 2. Start Services
