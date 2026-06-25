@@ -52,15 +52,32 @@ AWS_ACCOUNT_IDS=123456789012
 # No AWS_ACCESS_KEY_ID/SECRET needed — boto3 reads ~/.aws/credentials
 ```
 
-#### Cross-Account Discovery (optional)
+#### Cross-Account Discovery (multiple AWS accounts)
 
-To scan multiple AWS accounts, set a role ARN that MII can assume:
+To scan 2+ AWS accounts, create the same read-only role in each account and set:
 ```bash
-AWS_ACCOUNT_IDS=111111111111,222222222222
-AWS_ASSUME_ROLE_ARN=arn:aws:iam::222222222222:role/MIIReadOnlyRole
+AWS_ACCOUNT_IDS=111111111111,222222222222,333333333333
+AWS_ASSUME_ROLE_ARN=arn:aws:iam::111111111111:role/MIIReadOnly
 ```
 
-The target account needs an IAM role trusting your source account with `IAMReadOnlyAccess`.
+MII automatically swaps the account ID in the role ARN for each account. So it will assume:
+- `arn:aws:iam::111111111111:role/MIIReadOnly`
+- `arn:aws:iam::222222222222:role/MIIReadOnly`
+- `arn:aws:iam::333333333333:role/MIIReadOnly`
+
+**Requirement:** Each target account needs an IAM role named `MIIReadOnly` (or whatever you choose) with:
+- Policy: `IAMReadOnlyAccess`
+- Trust: allows your source account/role to assume it
+
+```json
+{
+  "Effect": "Allow",
+  "Principal": { "AWS": "arn:aws:iam::SOURCE_ACCOUNT:role/mii-ec2-role" },
+  "Action": "sts:AssumeRole"
+}
+```
+
+If you only have **one account**, you don't need `AWS_ASSUME_ROLE_ARN` — just set credentials directly.
 
 ---
 
