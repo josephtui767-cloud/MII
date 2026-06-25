@@ -9,8 +9,9 @@ class Settings(BaseSettings):
 
     # AWS
     AWS_REGION: str = "eu-west-1"
-    AWS_ACCOUNT_IDS: str = ""  # Comma-separated
+    AWS_ACCOUNT_IDS: str = ""  # Comma-separated, or "auto" for AWS Organizations
     AWS_ASSUME_ROLE_ARN: str = ""
+    AWS_ORG_ROLE_ARN: str = ""  # Role to assume for listing org accounts (optional)
 
     # GitLab
     GITLAB_URL: str = "https://gitlab.com"
@@ -28,10 +29,19 @@ class Settings(BaseSettings):
 
     @property
     def aws_account_ids_list(self) -> list[str]:
-        """Parse comma-separated account IDs into a list."""
-        if not self.AWS_ACCOUNT_IDS:
+        """Parse comma-separated account IDs into a list.
+        
+        If set to 'auto', returns empty list — the collector will 
+        discover accounts via AWS Organizations API.
+        """
+        if not self.AWS_ACCOUNT_IDS or self.AWS_ACCOUNT_IDS.strip().lower() == "auto":
             return []
         return [aid.strip() for aid in self.AWS_ACCOUNT_IDS.split(",") if aid.strip()]
+
+    @property
+    def use_aws_organizations(self) -> bool:
+        """Whether to auto-discover accounts via AWS Organizations."""
+        return self.AWS_ACCOUNT_IDS.strip().lower() == "auto"
 
     @property
     def database_url_sync(self) -> str:

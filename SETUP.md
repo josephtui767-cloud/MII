@@ -79,6 +79,47 @@ MII automatically swaps the account ID in the role ARN for each account. So it w
 
 If you only have **one account**, you don't need `AWS_ASSUME_ROLE_ARN` — just set credentials directly.
 
+#### Enterprise: AWS Organizations Auto-Discovery (100+ accounts)
+
+For large organizations, manually listing account IDs is impractical. Set `AWS_ACCOUNT_IDS=auto` and MII will automatically discover all active accounts via the AWS Organizations API:
+
+```bash
+AWS_ACCOUNT_IDS=auto
+AWS_ASSUME_ROLE_ARN=arn:aws:iam::000000000000:role/MIIReadOnly
+# Optional: if your Organizations management account is separate
+AWS_ORG_ROLE_ARN=arn:aws:iam::MANAGEMENT_ACCOUNT:role/MIIOrgReader
+```
+
+**How it works:**
+1. MII calls `organizations:ListAccounts` to find all active accounts
+2. For each account, it assumes `MIIReadOnly` role (swapping the account ID)
+3. Discovers all IAM roles across your entire organization
+
+**Setup:**
+1. In your **management account** (or delegated admin), create a role with `organizations:ListAccounts` permission
+2. In **every member account**, deploy the `MIIReadOnly` role via CloudFormation StackSets:
+
+```yaml
+# stackset-mii-role.yml
+Resources:
+  MIIReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: MIIReadOnly
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::SOURCE_ACCOUNT:role/mii-ec2-role
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+```
+
+3. Deploy the StackSet to all accounts in your organization
+4. Set `AWS_ACCOUNT_IDS=auto` — MII handles the rest
+
 ---
 
 ### GitLab Setup (Optional)

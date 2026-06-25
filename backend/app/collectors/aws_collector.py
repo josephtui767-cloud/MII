@@ -40,10 +40,18 @@ class AWSCollector:
 
         Returns summary dict with counts and errors.
         """
-        account_ids = settings.aws_account_ids_list
+        # Determine accounts to scan
+        if settings.use_aws_organizations:
+            account_ids = await self._list_org_accounts()
+            if not account_ids:
+                return {"identities": 0, "errors": ["Failed to list AWS Organizations accounts"]}
+            logger.info(f"AWS Organizations: discovered {len(account_ids)} accounts")
+        else:
+            account_ids = settings.aws_account_ids_list
+
         if not account_ids:
             logger.warning("No AWS account IDs configured. Skipping AWS collection.")
-            return {"identities": 0, "errors": ["No AWS account IDs configured"]}
+            return {"identities": 0, "errors": ["No AWS account IDs configured. Set AWS_ACCOUNT_IDS or use 'auto' for Organizations."]}
 
         self.discovered_identities = []
         self.errors = []
@@ -69,6 +77,46 @@ class AWSCollector:
             "identities": persisted,
             "errors": self.errors,
         }
+
+    async def _list_org_accounts(self) -> list[str]:
+        """List all active accounts from AWS Organizations."""
+        loop = asyncio.get_event_loop()
+
+        def _fetch_accounts():
+            try:
+                if settings.AWS_ORG_ROLE_ARN:
+                    # Assume org management role
+                    sts = boto3.client("sts", region_name=settings.AWS_REGION)
+                    creds = sts.assume_role(
+                        RoleArn=settings.AWS_ORG_ROLE_ARN,
+                        RoleSessionName="MII-OrgDiscovery",
+                    )["Credentials"]
+                    org_client = boto3.client(
+                        "organizations",
+                        aws_access_key_id=creds["AccessKeyId"],
+                        aws_secret_access_key=creds["SecretAccessKey"],
+                        aws_session_token=creds["SessionToken"],
+                    )
+                else:
+                    org_client = boto3.client("organizations", region_name=settings.AWS_REGION)
+
+                accounts = []
+                paginator = org_client.get_paginator("list_accounts")
+                for page in paginator.paginate():
+                    for account in page["Accounts"]:
+                        if account["Status"] == "ACTIVE":
+                            accounts.append(account["Id"])
+                return accounts
+            except ClientError as e:
+                logger.error(f"Failed to list Organizations accounts: {e}")
+                self.errors.append(f"AWS Organizations error: {e}")
+                return []
+            except Exception as e:
+                logger.error(f"Unexpected error listing Organizations accounts: {e}")
+                self.errors.append(f"AWS Organizations error: {e}")
+                return []
+
+        return await loop.run_in_executor(None, _fetch_accounts)
 
     async def _collect_account(self, account_id: str):
         """Collect all IAM roles from a single AWS account."""
