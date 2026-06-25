@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  
+  <!-- Subtle grid pattern -->
+  <g opacity="0.05">
+    <line x1="0" y1="50" x2="1200" y2="50" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="1200" y2="150" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="250" x2="1200" y2="250" stroke="white" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="100" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="500" y1="0" x2="500" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="700" y1="0" x2="700" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="800" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="900" y1="0" x2="900" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="1000" y1="0" x2="1000" y2="300" stroke="white" stroke-width="0.5"/>
+    <line x1="1100" y1="0" x2="1100" y2="300" stroke="white" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Decorative nodes (trust graph aesthetic) -->
+  <g opacity="0.15">
+    <!-- Node clusters - left -->
+    <circle cx="80" cy="80" r="4" fill="#3B82F6"/>
+    <circle cx="120" cy="60" r="3" fill="#8B5CF6"/>
+    <circle cx="150" cy="100" r="5" fill="#3B82F6"/>
+    <line x1="80" y1="80" x2="120" y2="60" stroke="#3B82F6" stroke-width="0.5"/>
+    <line x1="120" y1="60" x2="150" y2="100" stroke="#8B5CF6" stroke-width="0.5"/>
+    <line x1="80" y1="80" x2="150" y2="100" stroke="#3B82F6" stroke-width="0.5"/>
+    
+    <!-- Node clusters - right -->
+    <circle cx="1050" cy="200" r="4" fill="#8B5CF6"/>
+    <circle cx="1090" cy="180" r="3" fill="#3B82F6"/>
+    <circle cx="1120" cy="220" r="5" fill="#8B5CF6"/>
+    <circle cx="1080" cy="240" r="3" fill="#3B82F6"/>
+    <line x1="1050" y1="200" x2="1090" y2="180" stroke="#8B5CF6" stroke-width="0.5"/>
+    <line x1="1090" y1="180" x2="1120" y2="220" stroke="#3B82F6" stroke-width="0.5"/>
+    <line x1="1050" y1="200" x2="1080" y2="240" stroke="#8B5CF6" stroke-width="0.5"/>
+    <line x1="1120" y1="220" x2="1080" y2="240" stroke="#3B82F6" stroke-width="0.5"/>
+    
+    <!-- Scattered nodes -->
+    <circle cx="200" cy="240" r="2" fill="#3B82F6"/>
+    <circle cx="950" cy="70" r="2" fill="#8B5CF6"/>
+    <circle cx="1000" cy="90" r="3" fill="#3B82F6"/>
+    <line x1="950" y1="70" x2="1000" y2="90" stroke="#8B5CF6" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Accent line top -->
+  <rect x="0" y="0" width="1200" height="2" fill="url(#accent)"/>
+  
+  <!-- Shield icon -->
+  <g transform="translate(440, 85)">
+    <path d="M20 4 L4 10 L4 20 C4 31 12 40 20 44 C28 40 36 31 36 20 L36 10 Z" 
+          fill="none" stroke="url(#accent)" stroke-width="2.5" opacity="0.9"/>
+    <path d="M15 22 L19 26 L27 16" 
+          fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Main title -->
+  <text x="490" y="125" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="42" font-weight="700" fill="white" letter-spacing="-1">
+    MII
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="150" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94A3B8" text-anchor="middle">
+    Machine Identity Intelligence
+  </text>
+  
+  <!-- Tagline -->
+  <text x="600" y="190" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#64748B" text-anchor="middle">
+    Discover · Map · Score · Remediate
+  </text>
+  
+  <!-- Bottom description -->
+  <text x="600" y="240" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" fill="#475569" text-anchor="middle">
+    Open-source security platform for machine identities across AWS and CI/CD pipelines
+  </text>
+  
+  <!-- Accent line bottom -->
+  <rect x="0" y="298" width="1200" height="2" fill="url(#accent)"/>
+</svg>

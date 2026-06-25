@@ -1,0 +1,15 @@
+# Required
+container_image              = "ghcr.io/YOUR_ORG/mii-backend:latest"
+container_registry_username  = "YOUR_GITHUB_USERNAME"
+container_registry_password  = "ghp_YOUR_GITHUB_PAT"
+
+# AWS
+aws_region      = "eu-central-1"
+aws_account_ids = "123456789012"
+
+# Optional
+openai_api_key = ""
+gitlab_token   = ""
+github_token   = ""
+db_password    = "your-secure-password"
+key_name       = ""

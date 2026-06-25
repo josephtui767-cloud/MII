@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[project]
+name = "mii-backend"
+version = "0.1.0"
+description = "Machine Identity Intelligence Platform - Backend API"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.34.0",
+    "sqlalchemy[asyncio]==2.0.36",
+    "asyncpg==0.30.0",
+    "alembic==1.14.1",
+    "pydantic==2.10.4",
+    "pydantic-settings==2.7.1",
+    "boto3==1.35.86",
+    "python-gitlab==5.0.0",
+    "networkx==3.4.2",
+    "openai==1.58.1",
+    "apscheduler==3.10.4",
+    "httpx==0.28.1",
+    "reportlab==4.2.5",
+    "openpyxl==3.1.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+    "pytest-asyncio==0.24.0",
+    "pytest-cov==6.0.0",
+    "moto[iam]==5.0.24",
+    "aiosqlite==0.20.0",
+    "ruff==0.8.6",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
