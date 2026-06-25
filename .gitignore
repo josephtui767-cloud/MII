@@ -8,6 +8,7 @@ venv/
 # Node
 node_modules/
 dist/
+tsconfig.tsbuildinfo
 
 # Terraform
 .terraform/

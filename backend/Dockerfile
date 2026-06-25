@@ -2,11 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir uv
+# Install system deps
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
 
+# Install Python deps
 COPY pyproject.toml .
-RUN uv pip install --system -e ".[dev]"
+COPY app/ app/
+RUN pip install --no-cache-dir -e .
 
+# Copy remaining files (alembic, tests, etc.)
 COPY . .
 
 EXPOSE 8000

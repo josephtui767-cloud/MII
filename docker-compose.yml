@@ -28,13 +28,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./backend:/app
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
+    environment:
+      - VITE_PROXY_TARGET=http://backend:8000
     depends_on:
       - backend
     volumes:
